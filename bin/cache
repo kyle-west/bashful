@@ -1,0 +1,44 @@
+#!/bin/bash
+
+cache_dir_base=~/.folder-cache
+repo=`basename $(pwd)`;
+cache_dir="$cache_dir_base/$repo"
+
+if [ ! -d "$cache_dir_base" ]; then
+  mkdir "$cache_dir_base"
+fi
+
+if [ "$1" == "--clear" ]; then
+  if [ "$2" != "all" ]; then
+    rm -rf "$cache_dir_base"
+  else
+    rm -rf "$cache_dir"
+  fi
+
+elif [ "$1" == "--show" ]; then
+  if [ -f "$cache_dir/.cache-timestamp" ]; then
+    echo "Files for $repo were cached on" $(cat "$cache_dir/.cache-timestamp")
+    ls "$cache_dir";
+  else 
+    echo "No cached files found for $repo"
+  fi
+
+elif [ "$1" == "--restore" ]; then
+  for folder in `find $cache_dir -type d -maxdepth 1 -mindepth 1`; do 
+    echo "RESTORING: $(basename $folder)"
+    mv "$folder" "./$(basename $folder)"
+    rm "$cache_dir/.cache-timestamp" 2>/dev/null
+  done
+
+elif [ "$1" != "" ]; then
+  for folder in ${@}; do 
+    if [ ! -d "$cache_dir" ]; then
+      mkdir "$cache_dir"
+    fi
+    rm -rf "$cache_dir/$folder"
+    mv "$folder" "$cache_dir"
+  done
+  echo "CACHED FOLDERS:"
+  ls "$cache_dir"
+  date > "$cache_dir/.cache-timestamp"
+fi
