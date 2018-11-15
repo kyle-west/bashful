@@ -1,4 +1,4 @@
-echo Installing BASHful Suites by kyle-west
+echo Installing BASHful Suite by kyle-west
 echo;
 
 # remove old suites
@@ -26,7 +26,7 @@ echo;
 
 # prompt the user to restart terminal
 echo;
-echo BASHful Suites by kyle-west
+echo BASHful Suite by kyle-west
 echo Install Complete
 echo    !!! Please restart your terminal to allow the changes to take effect !!!
 echo;

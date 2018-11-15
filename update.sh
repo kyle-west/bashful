@@ -1,4 +1,4 @@
-echo Updating BASHful Suites by kyle-west
+echo Updating BASHful Suite by kyle-west
 echo;
 
 echo Collecting changes
@@ -16,6 +16,6 @@ echo;
 
 # prompt the user to restart terminal
 echo;
-echo BASHful Suites by kyle-west
+echo BASHful Suite by kyle-west
 echo Update Complete
 echo;

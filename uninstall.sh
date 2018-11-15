@@ -13,7 +13,7 @@ echo;
 
 # prompt the user to restart terminal
 echo;
-echo BASHful Suites by kyle-west
+echo BASHful Suite by kyle-west
 echo Uninstall Complete
 echo    !!! Please restart your terminal to allow the changes to take effect !!!
 echo;
