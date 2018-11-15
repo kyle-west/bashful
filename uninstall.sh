@@ -8,6 +8,10 @@ edited_profile=$(cat ~/.bash_profile | sed -e "s#$import_path_line##g")
 
 echo -e "$edited_profile" > ~/.bash_profile
 
+# zsh users
+edited_profile=$(cat ~/.zshrc | sed -e "s#$import_path_line##g")
+echo -e "$edited_profile" > ~/.zshrc;
+
 echo Done
 echo;
 

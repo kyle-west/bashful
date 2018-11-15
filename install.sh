@@ -12,6 +12,7 @@ echo Installing $__bash_suite_program_dir to PATH
 mkdir $__bash_suite_program_dir
 import_path_line='export PATH="${PATH}:$(echo ~/.bashful)"'
 echo $import_path_line >> ~/.bash_profile;
+echo $import_path_line >> ~/.zshrc;
 echo Done
 echo $PATH
 echo;
