@@ -12,10 +12,15 @@ Manager to handle installing and script running, since it is familiar to many.
 To install the toolset suite run:
 
 ```sh
+# clone the suite installation package:
+git clone https://github.com/kyle-west/bashful.git
+cd bashful/
+
+# run the installation
 npm install
 ```
 
-When this script completes, you will be prompted to restart your terminal. This 
+When this script completes, **you will be prompted to restart your terminal**. This 
 is because the installation edits your `$path` environment variable to make the 
 tools accessible in all contexts. 
 
