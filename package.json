@@ -1,0 +1,26 @@
+{
+  "name": "bashful",
+  "version": "1.0.0",
+  "description": "Install my custom suite of terminal tools for Bash in OSX",
+  "main": "install.sh",
+  "scripts": {
+    "install": "bash install.sh",
+    "uninstall": "bash uninstall.sh",
+    "update": "bash update.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kyle-west/bashful.git"
+  },
+  "keywords": [
+    "bash",
+    "terminal",
+    "tools"
+  ],
+  "author": "kyle-west",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kyle-west/bashful/issues"
+  },
+  "homepage": "https://github.com/kyle-west/bashful#readme"
+}

@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+
+let file;
+
+try {
+  file = fs.readFileSync(process.argv[2]);
+  file = JSON.parse(file.toString());
+} catch (err) {
+  console.warn(`'${err.path}' file not found`);
+  process.exit();
+}
+
+if (process.argv[3]) {
+  let cmd = process.argv[3].replace(/\$/g, 'file').replace(/file{/g, '${');
+  let ret = eval(cmd);
+  ret && console.log(ret);
+} else {
+  console.log(JSON.stringify(file, null, 2));
+}
+
+process.exit();
