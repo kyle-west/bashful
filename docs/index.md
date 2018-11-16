@@ -12,7 +12,7 @@ json <filename> <evaluation string>
 ## [`cache`](./cache.md)
 
 Temporarily remove a folder (or folders) and restore it when you need it again. 
-See the [Docs](./json.md) for more details.
+See the [Docs](./cache.md) for more details.
 
 ```sh
 cache <folder 1> <...>
