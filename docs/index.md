@@ -18,5 +18,3 @@ See the [Docs](./cache.md) for more details.
 cache <folder 1> <...>
 cache [--restore | --show | --clear]
 ```
----
-###### [[back to README]](../README.md)

@@ -66,6 +66,3 @@ This will output something to the following:
 Files for <project> were cached on Fri Nov 16 07:45:23 MST 2018
 node_modules
 ```
-
----
-###### [[back to docs]](./index.md)

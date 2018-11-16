@@ -49,6 +49,3 @@ json package.json '$.keywords.map(word => word.toUpperCase())'
 # Outputs:
 #    [ 'BASH', 'TERMINAL', 'TOOLS' ]
 ```
-
----
-###### [[back to docs]](./index.md)

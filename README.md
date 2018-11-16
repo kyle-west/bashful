@@ -7,7 +7,7 @@ on how to improve my toolset, so feel free to pitch ideas or enhancements on the
 
 # Tools in the Suite and their Documentation
 
-A list of available tools and their usages can be found on the [Documentation Page](/docs/index.md).
+A list of available tools and their usages can be found on the [Documentation Page](https://kyle-west.github.io/bashful/).
 
 # Installing 
 
