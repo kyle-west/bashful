@@ -3,10 +3,12 @@ echo;
 
 __bash_suite_program_dir=~/.bashful
 
-echo Collecting changes
-git pull || exit 1
-echo Done
-echo;
+if [ "$1" != "--no-pull" ]; then
+  echo Collecting changes
+  git pull || exit 1
+  echo Done
+  echo;
+fi
 
 # install tools 
 echo Installing programs:

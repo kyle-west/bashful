@@ -10,13 +10,13 @@ const rl = readline.createInterface({
 
 let bower, package;
 
-try {
+if (fs.existsSync('bower.json')) {
   bower = fs.readFileSync('bower.json');
-  package = fs.readFileSync('package.json');
-} catch (err) {
-  console.warn(`'${err.path}' file not found`);
 }
 
+if (fs.existsSync('package.json')) {
+  package = fs.readFileSync('package.json');
+}
 
 if (bower) {
   bower = JSON.parse(bower.toString());
