@@ -5,6 +5,10 @@ This package allows me to share my tools with others. I am always up for ideas
 on how to improve my toolset, so feel free to pitch ideas or enhancements on the 
 [Issue Page](https://github.com/kyle-west/bashful/issues). 
 
+# Tools in the Suite and their Documentation
+
+A list of available tools and their usages can be found on the [Documentation Page](/docs/index.md).
+
 # Installing 
 
 Though most of the code is not written in JavaScript, I use the Node Package 
@@ -39,7 +43,3 @@ Unlike the install / uninstall, this will not require a restart after updating
 ```sh
 npm run update
 ```
-
-# Tools in the Suite and their [Documentation](/docs/index.md)
-
-A list of available tools and their usages can be found on the [Documentation Page](/docs/index.md).
