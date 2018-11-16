@@ -1,0 +1,94 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+
+let bower, package;
+
+try {
+  bower = fs.readFileSync('bower.json');
+  package = fs.readFileSync('package.json');
+} catch (err) {
+  console.warn(`'${err.path}' file not found`);
+}
+
+
+if (bower) {
+  bower = JSON.parse(bower.toString());
+}
+
+if (package) {
+  package = JSON.parse(package.toString());
+}
+
+let repo = (bower && bower.version) ? bower : package;
+
+if (!repo) process.exit();
+
+
+let versionOpts = ((v) => {
+  let mmp = v.split('.');
+  let major = `${(new Number(mmp[0]) + 1)}.0.0`;
+  let minor = `${mmp[0]}.${(new Number(mmp[1]) + 1)}.0`;
+  let patch = `${mmp[0]}.${mmp[1]}.${(new Number(mmp[2]) + 1)}`;
+  return [ major, minor, patch ];
+})(repo.version);
+
+
+
+
+function updateVersion(newVersion) {
+  console.log(`Moving ${repo.version} --> ${newVersion}`);
+  
+  if (bower) {
+    bower.version = newVersion;
+    fs.writeFileSync("bower.json", JSON.stringify(bower, null, 2) + "\n");
+    console.log('bower.json updated.')
+  }
+  
+  if (package) {
+    package.version = newVersion;
+    fs.writeFileSync("package.json", JSON.stringify(package, null, 2) + "\n");
+    console.log('package.json updated.')
+  }
+
+  process.exit();
+}
+
+let question = `Current Version is ${repo.version}, What should I make the the new release to be? (enter option number)
+        1 - Major: ${versionOpts[0]}
+        2 - Minor: ${versionOpts[1]}
+        3 - Patch: ${versionOpts[2]}
+`;
+
+switch (process.argv[2]) {
+  case "patch":
+    updateVersion(versionOpts[2])
+    break;
+  
+  case "minor":
+    updateVersion(versionOpts[1])
+    break;
+  
+  case "major":
+    updateVersion(versionOpts[0])
+    break;
+  
+  default:
+    rl.question(question, (answer) => {
+      let i = new Number(answer) - 1;
+      
+      if (i >= 0 && i < 3) {
+        updateVersion(versionOpts[i]);
+      } else {
+        console.log(`Invalid Answer '${answer}'`);
+      }
+      
+      rl.close();
+    });
+}
