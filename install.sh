@@ -6,11 +6,12 @@ echo Removing old suites
 bash uninstall.sh
 
 __bash_suite_program_dir=~/.bashful
+__bash_suite_filesys=~/.bashful.filesys
 
 # make the suite directory and add it to PATH
 echo Installing $__bash_suite_program_dir to PATH
 mkdir $__bash_suite_program_dir
-import_path_line='export PATH="${PATH}:$(echo ~/.bashful)"'
+import_path_line='source ~/.bashful.filesys/bashful.rc'
 echo $import_path_line >> ~/.bash_profile;
 echo $import_path_line >> ~/.zshrc;
 echo Done
@@ -20,11 +21,15 @@ echo;
 # install tools 
 echo Copying over programs:
 cp ./bin/* "$__bash_suite_program_dir/"
-chmod a-x "$__bash_suite_program_dir/*" # make tools executable 
-chmod u+x "$__bash_suite_program_dir/*" #   only for the user
 ls $__bash_suite_program_dir
 echo Done
 echo;
+
+# install file system for BASHful
+mkdir $__bash_suite_filesys
+cp -a filesys/* "$__bash_suite_filesys/"
+
+cp -a . "$__bash_suite_filesys/__SELF__"
 
 # prompt the user to restart terminal
 echo;

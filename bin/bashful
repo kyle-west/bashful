@@ -1,0 +1,48 @@
+#!/bin/bash
+
+__bash_suite_program_dir=~/.bashful
+__bash_suite_filesys=~/.bashful.filesys
+__SELF__="$__bash_suite_filesys/__SELF__"
+__docs="https://kyle-west.github.io/bashful"
+
+if [ "$1" == "list" ] || [ "$1" == "l" ]; then
+  echo The following Programs are installed
+  for program in `find $__bash_suite_program_dir -type f`; do
+    echo -e "\t$(basename $program)"
+  done
+
+elif [ "$1" == "man" ] || [ "$1" == "docs" ]; then
+  if [ "$2" == "" ]; then 
+    echo "Opening the BASHful Docs in your default browser"
+    open "$__docs"
+  else 
+    _url="$__docs/$2.html"
+    echo -e "Opening the Docs for \`$2\` in your default browser:\n\t$_url"
+    open "$_url"
+  fi
+
+elif [ "$1" == "install" ] || [ "$1" == "update" ] ; then
+  cd "$__SELF__";
+  
+  if [ "$1" == "update" ]; then 
+    echo Gathering latest files from GitHub
+    git pull;
+  fi;
+
+  for program in "${@:2}"; do
+    echo "Installing '$program'"
+    cp "bin/$program" "$__bash_suite_program_dir/"
+  done
+
+elif [ "$1" == "uninstall" ] && [ "$2" == "--remove-suite" ]; then
+  cd "$__SELF__";
+  bash uninstall.sh
+  
+elif [ "$1" == "uninstall" ]; then
+  cd "$__SELF__";
+  for program in "${@:2}"; do
+    echo "Uninstalling '$program'"
+    rm "$__bash_suite_program_dir/$program"
+  done
+
+fi

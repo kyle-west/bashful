@@ -28,6 +28,9 @@ When this script completes, **you will be prompted to restart your terminal**. T
 is because the installation edits your `$path` environment variable to make the 
 tools accessible in all contexts. 
 
+Go ahead and delete the cloned repo. The programs will still work, and you 
+can later install/uninstall things with the `bashful` CLI. 
+
 ### Uninstalling 
 
 The uninstall is easy, and, like the install, requires a restart afterwards.
@@ -38,8 +41,8 @@ npm run uninstall
 
 ### Updating 
 
-Unlike the install / uninstall, this will not require a restart after updating
+The `bashful` tool has built in support for updating programs
 
 ```sh
-npm run update
+bashful update [program]
 ```

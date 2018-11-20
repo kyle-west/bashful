@@ -1,9 +1,11 @@
 __bash_suite_program_dir=~/.bashful
+__bash_suite_filesys=~/.bashful.filesys
 
 echo Removing $__bash_suite_program_dir
 rm -rf $__bash_suite_program_dir 2>/dev/null;
+rm -rf $__bash_suite_filesys 2>/dev/null;
 
-import_path_line='export PATH="${PATH}:$(echo ~/.bashful)"'
+import_path_line='source ~/.bashful.filesys/bashful.rc'
 edited_profile=$(cat ~/.bash_profile | sed -e "s#$import_path_line##g")
 
 echo -e "$edited_profile" > ~/.bash_profile
