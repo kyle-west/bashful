@@ -1,5 +1,7 @@
 # BASHful Suite Tools
 
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
 ## [`bashful`](./bashful.md)
 
 Manage the BASHful Suite tools.
