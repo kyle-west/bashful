@@ -1,6 +1,6 @@
 # BASHful Suite Tools
 
-<link rel="shortcut icon" type="image/png" href="/favicon.png">
+<link rel="shortcut icon" type="image/png" href="favicon.png">
 
 ## [`bashful`](./bashful.md)
 
