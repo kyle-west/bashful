@@ -50,4 +50,20 @@ elif [ "$1" == "uninstall" ]; then
     fi
   done
 
+elif [ "$1" == "gist" ] && [ "$2" == "install" ]; then
+  _url=$(echo "$3.git" | sed -e 's#.git.git#.git#g');
+  gist_hash=$(basename "$_url" | sed -e 's#.git##g');
+  echo "$gist_hash: $_url";
+  cd $__TMP__;
+  git clone "$_url";
+  cd "$gist_hash";
+  echo;
+  file=$(ls)
+  echo "Installing File: '$file'"
+  cp "$file" "$__bash_suite_program_dir/"
+  chmod a-x "$__bash_suite_program_dir/$file"
+  chmod u+x "$__bash_suite_program_dir/$file"
+  echo;
+  cd ../;
+  rm -rf "$gist_hash";
 fi
