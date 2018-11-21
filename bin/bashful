@@ -3,6 +3,7 @@
 __bash_suite_program_dir=~/.bashful
 __bash_suite_filesys=~/.bashful.filesys
 __SELF__="$__bash_suite_filesys/__SELF__"
+__TMP__="$__bash_suite_filesys/tmp"
 __docs="https://kyle-west.github.io/bashful"
 
 if [ "$1" == "list" ] || [ "$1" == "l" ]; then
@@ -11,7 +12,7 @@ if [ "$1" == "list" ] || [ "$1" == "l" ]; then
     echo -e "\t$(basename $program)"
   done
 
-elif [ "$1" == "man" ] || [ "$1" == "docs" ]; then
+elif [ "$1" == "docs" ] || [ "$1" == "man" ]; then
   if [ "$2" == "" ]; then 
     echo "Opening the BASHful Docs in your default browser"
     open "$__docs"
@@ -41,8 +42,11 @@ elif [ "$1" == "uninstall" ] && [ "$2" == "--remove-suite" ]; then
 elif [ "$1" == "uninstall" ]; then
   cd "$__SELF__";
   for program in "${@:2}"; do
-    echo "Uninstalling '$program'"
-    rm "$__bash_suite_program_dir/$program"
+    if [ "$program" != 'bashful' ]; then 
+      echo "Uninstalling '$program'"
+      rm "$__bash_suite_program_dir/$program"
+    else
+      echo "Cannot uninstall '$program'. Use 'bashful uninstall --remove-suite' if you mean to uninstall the entire BASHful Suite"
   done
 
 fi

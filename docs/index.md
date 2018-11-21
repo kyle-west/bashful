@@ -1,5 +1,17 @@
 # BASHful Suite Tools
 
+## [`bashful`](./bashful.md)
+
+Manage the BASHful Suite tools.
+See the [Docs](./bashful.md) for more details.
+
+```sh
+bashful [install | uninstall | update] <tool 1> <...>
+bashful docs [<tool>]
+```
+
+---
+
 ## [`cache`](./cache.md)
 
 Temporarily remove a folder (or folders) and restore it when you need it again. 
