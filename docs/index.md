@@ -10,6 +10,7 @@ See the [Docs](./bashful.md) for more details.
 ```sh
 bashful [install | uninstall | update] <tool 1> <...>
 bashful docs [<tool>]
+bashful gist install <url-to-github-gist>
 ```
 
 ---
