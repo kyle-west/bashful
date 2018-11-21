@@ -31,13 +31,15 @@ tools accessible in all contexts.
 Go ahead and delete the cloned repo. The programs will still work, and you 
 can later install/uninstall things with the `bashful` CLI. 
 
-### Uninstalling 
+### Uninstalling the entire Suite
 
 The uninstall is easy, and, like the install, requires a restart afterwards.
 
 ```sh
-npm run uninstall
+bashful uninstall --remove-suite
 ```
+
+If you wish to uninstall a specific tool, see the [Docs](https://kyle-west.github.io/bashful/bashful.html) for more info.
 
 ### Updating 
 
