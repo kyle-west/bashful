@@ -3,7 +3,7 @@ echo;
 
 # remove old suites
 echo Removing old suites
-bash uninstall.sh
+bash uninstall.sh uninstalled-as-prep-for-install
 
 __bash_suite_program_dir=~/.bashful
 __bash_suite_filesys=~/.bashful.filesys
@@ -15,13 +15,12 @@ import_path_line='source ~/.bashful.filesys/bashful.rc'
 echo $import_path_line >> ~/.bash_profile;
 echo $import_path_line >> ~/.zshrc;
 echo Done
-echo $PATH
 echo;
 
 # install tools 
 echo Copying over programs:
 cp ./bin/* "$__bash_suite_program_dir/"
-ls $__bash_suite_program_dir
+echo -e "\t" `ls $__bash_suite_program_dir`
 echo Done
 echo;
 

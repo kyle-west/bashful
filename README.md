@@ -13,7 +13,13 @@ A list of available tools and their usages can be found on the [Documentation Pa
 
 Though most of the code is not written in JavaScript, I use the Node Package 
 Manager to handle installing and script running, since it is familiar to many.
-To install the toolset suite run:
+To install the toolset run:
+
+```sh
+npx -q https://github.com/kyle-west/bashful.git
+```
+
+To install without NPM run:
 
 ```sh
 # clone the suite installation package:
@@ -21,15 +27,16 @@ git clone https://github.com/kyle-west/bashful.git
 cd bashful/
 
 # run the installation
-npm install
+sh ./install.sh
 ```
 
-When this script completes, **you will be prompted to restart your terminal**. This 
+When either script completes, **you must restart your terminal**. This 
 is because the installation edits your `$path` environment variable to make the 
 tools accessible in all contexts. 
 
-Go ahead and delete the cloned repo. The programs will still work, and you 
-can later install/uninstall things with the `bashful` CLI. 
+### Installing / Uninstalling Tools
+
+`bashful` CLI has it's own installation management of tools, including gists. See the [Docs](https://kyle-west.github.io/bashful/bashful.html) for more info.
 
 ### Uninstalling the entire Suite
 
