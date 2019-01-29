@@ -17,9 +17,11 @@ echo -e "$edited_profile" > ~/.zshrc;
 echo Done
 echo;
 
-# prompt the user to restart terminal
-echo;
-echo BASHful Suite by kyle-west
-echo Uninstall Complete
-echo    !!! Please restart your terminal to allow the changes to take effect !!!
-echo;
+if [ "$1" != "uninstalled-as-prep-for-install" ]; then
+  # prompt the user to restart terminal
+  echo;
+  echo BASHful Suite by kyle-west
+  echo Uninstall Complete
+  echo    !!! Please restart your terminal to allow the changes to take effect !!!
+  echo;
+fi
