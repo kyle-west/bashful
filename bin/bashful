@@ -5,18 +5,19 @@ getGistVersion () {
   curl -s `echo "$1" | sed -e 's#.git$##g'` | grep 'class="Counter"' | sed -e 's/[^0-9]*//g'
 }
 
-listInstalledNative () {
+############################################################################################
+# Manifest
+############################################################################################
+manifest.listInstalledNative () {
   echo "Native Bashful Tools:"
   json "$__bash_suite_filesys/installation-manifest.json" 'console.table($.native)'
   echo;
 }
-
-listInstalledGists () {
+manifest.listInstalledGists () {
   echo "Bashful Tools Installed from Gists:"
   json "$__bash_suite_filesys/installation-manifest.json" 'console.table($.fromGists)'
   echo;
 }
-
 manfiest.addGist () {
   obj=`echo "{ \"name\": \"$1\", \"gistUrl\": \"$2\", \"revision\": $3 }"`
   data=$(json "$__bash_suite_filesys/installation-manifest.json" "
@@ -40,6 +41,57 @@ manfiest.getGistUrl () {
   "
 }
 
+
+############################################################################################
+# Registry
+############################################################################################
+registry.query () {
+  json "$__bash_suite_filesys/registry.json" "
+    let found = [] 
+    Object.keys(\$).forEach(registry => {
+      Object.keys(\$[registry])
+        .filter(name => name.includes('$1'))
+        .forEach(package => {
+          found.push({package, registry, description: \$[registry][package].description })
+        })
+    })
+    console.table(found)
+  "
+  echo "Install a gist package by running \`bashful gist install <package-name>\`"
+}
+registry.findInstallURL () {
+  json "$__bash_suite_filesys/registry.json" "
+    let found = [] 
+    Object.keys(\$).forEach(registry => {
+      Object.keys(\$[registry])
+        .filter(name => name === '$1'))
+        .forEach(package => {
+          found.push({package, registry, description: \$[registry][package].description })
+        })
+    })
+    console.table(found)
+  "
+}
+registry.addRegistryList () {
+  _url=$(echo "$1.git" | sed -e 's#.git.git#.git#g');
+  gist_hash=$(basename "$_url" | sed -e 's#.git##g');
+  echo "$gist_hash: $_url";
+  cd $__TMP__;
+  git clone "$_url";
+  cd "$gist_hash";
+  file=$(ls)
+  data=$(json $file "
+    let registry = require('$__bash_suite_filesys/registry.json');
+    console.log(JSON.stringify(Object.assign({}, registry, \$)))
+  ")
+  echo "$data" > "$__bash_suite_filesys/registry.json"
+  rm -rf "$gist_hash";
+}
+
+
+############################################################################################
+# Bashful
+############################################################################################
 __bash_suite_program_dir=~/.bashful
 __bash_suite_filesys=~/.bashful.filesys
 __SELF__="$__bash_suite_filesys/__SELF__"
@@ -47,8 +99,11 @@ __TMP__="$__bash_suite_filesys/tmp"
 __docs="https://kyle-west.github.io/bashful"
 
 if [ "$1" == "list" ] || [ "$1" == "-l" ]; then
-  listInstalledNative
-  listInstalledGists
+  manifest.listInstalledNative
+  manifest.listInstalledGists
+
+elif [ "$1" == "info" ]; then
+  registry.query $2
 
 elif [ "$1" == "docs" ] || [ "$1" == "man" ]; then
   if [ "$2" == "" ]; then 
@@ -99,8 +154,9 @@ elif [ "$1" == "uninstall" ]; then
   done
 
 elif [ "$1" == "gist" ]; then
-  if [ "$2" == "install" ]; then
-    echo "TODO: record gist install in manifest"
+  if [ "$2" == "add" ]; then
+    registry.addRegistryList $3
+  elif [ "$2" == "install" ]; then
     _url=$(echo "$3.git" | sed -e 's#.git.git#.git#g');
     gist_hash=$(basename "$_url" | sed -e 's#.git##g');
     echo "$gist_hash: $_url";

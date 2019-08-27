@@ -1,5 +1,20 @@
 {
-  "gists": {
-    "bacon": { "gist-url": "https://gist.github.com/kyle-west/e3f91dc5817849ca4a316098911b7e7d" }
+  "standard": {
+    "bacon": {
+      "description": "Test the `bashful gist install` program",
+      "gistUrl": "https://gist.github.com/kyle-west/e3f91dc5817849ca4a316098911b7e7d"
+    },
+    "prune": {
+      "description": "Remove all the Git branches that match a pattern",
+      "gistUrl": "https://gist.github.com/kyle-west/6ffc7ec0d1c377c99f44c5388356391f"
+    },
+    "killport": {
+      "description": "Kill a process that is listening on a specific port",
+      "gistUrl": "https://gist.github.com/kyle-west/5735c708e395b7c65d439325df88ea32"
+    },
+    "workspace": {
+      "description": "\"Favorite\" a directory and quickly navigate to it using `ws [name]`.",
+      "gistUrl": "https://gist.github.com/kyle-west/09a3380e441001301895dba6a2842fa8"
+    }
   }
 }
