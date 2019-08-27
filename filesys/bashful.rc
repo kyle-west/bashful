@@ -1,1 +1,3 @@
 export PATH="${PATH}:$(echo ~/.bashful)"
+
+alias bashful.parseArgs="source ~/.bashful.filesys/utils/parse-args"
