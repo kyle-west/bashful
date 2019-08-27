@@ -1,0 +1,28 @@
+#!/bin/bash
+
+######################################################################################
+# parse-args - Run an evaluation on all the arguments to an app. Sets ENV variables for 
+#  named data. Puts positional args in `args` array. Sets small flags to a value of '1'
+# 
+# USAGE:
+#    source parse-args
+######################################################################################
+
+args=()
+until [ -z "$1" ]; do
+  if [[ "$1" == "--"* ]]; then
+    key=`echo "$1" | sed -e "s/--/__/g"`
+    echo "BIG FLAG  : $key='$2'"
+    eval "$key='$2'"
+    shift 2
+  elif [[ "$1" == "-"* ]]; then
+    key=`echo "$1" | sed -e "s/-/_/g"`
+    echo "SMALL FLAG: $key"
+    eval "$key=1"
+    shift 1
+  else
+    echo "POSITONAL : $1"
+    args+=("$1")
+    shift 1
+  fi
+done

@@ -1,16 +1,54 @@
 #!/bin/bash
 
+# USAGE: getGistVersion https://gist.github.com/kyle-west/e3f91dc5817849ca4a316098911b7e7d
+getGistVersion () {
+  curl -s `echo "$1" | sed -e 's#.git$##g'` | grep 'class="Counter"' | sed -e 's/[^0-9]*//g'
+}
+
+listInstalledNative () {
+  echo "Native Bashful Tools:"
+  json "$__bash_suite_filesys/installation-manifest.json" 'console.table($.native)'
+  echo;
+}
+
+listInstalledGists () {
+  echo "Bashful Tools Installed from Gists:"
+  json "$__bash_suite_filesys/installation-manifest.json" 'console.table($.fromGists)'
+  echo;
+}
+
+manfiest.addGist () {
+  obj=`echo "{ \"name\": \"$1\", \"gistUrl\": \"$2\", \"revision\": $3 }"`
+  data=$(json "$__bash_suite_filesys/installation-manifest.json" "
+    \$.fromGists.push({ name: '$1', gistUrl: '$2', revision: $3 });
+    console.log(JSON.stringify(\$))
+  ")
+  echo "$data" > "$__bash_suite_filesys/installation-manifest.json"
+}
+manfiest.removeGist () {
+  data=$(json "$__bash_suite_filesys/installation-manifest.json" "
+    \$.fromGists = \$.fromGists.filter(x => x.name !== '$1');
+    console.log(JSON.stringify(\$))
+  ")
+  echo "$data" > "$__bash_suite_filesys/installation-manifest.json"
+}
+manfiest.getGistUrl () {
+  json "$__bash_suite_filesys/installation-manifest.json" "
+    let [gist] = \$.fromGists.filter(x => x.name === '$1');
+    if (gist) console.log(gist.gistUrl)
+    else console.log('')
+  "
+}
+
 __bash_suite_program_dir=~/.bashful
 __bash_suite_filesys=~/.bashful.filesys
 __SELF__="$__bash_suite_filesys/__SELF__"
 __TMP__="$__bash_suite_filesys/tmp"
 __docs="https://kyle-west.github.io/bashful"
 
-if [ "$1" == "list" ] || [ "$1" == "l" ]; then
-  echo The following Programs are installed
-  for program in `find $__bash_suite_program_dir -type f`; do
-    echo -e "\t$(basename $program)"
-  done
+if [ "$1" == "list" ] || [ "$1" == "-l" ]; then
+  listInstalledNative
+  listInstalledGists
 
 elif [ "$1" == "docs" ] || [ "$1" == "man" ]; then
   if [ "$2" == "" ]; then 
@@ -32,7 +70,16 @@ elif [ "$1" == "install" ] || [ "$1" == "update" ] ; then
 
   for program in "${@:2}"; do
     echo "Installing '$program'"
-    cp "bin/$program" "$__bash_suite_program_dir/"
+    if [ -f "bin/$program" ]; then
+      cp "bin/$program" "$__bash_suite_program_dir/"
+    else
+      _url=$(manfiest.getGistUrl $program)
+      if [ "$_url" != "" ]; then
+        bashful gist install "$_url";
+      else 
+        echo "\"$program\" not found"
+      fi
+    fi
   done
 
 elif [ "$1" == "uninstall" ] && [ "$2" == "--remove-suite" ]; then
@@ -45,25 +92,34 @@ elif [ "$1" == "uninstall" ]; then
     if [ "$program" != 'bashful' ]; then 
       echo "Uninstalling '$program'"
       rm "$__bash_suite_program_dir/$program"
+      manfiest.removeGist $program
     else
       echo "Cannot uninstall '$program'. Use 'bashful uninstall --remove-suite' if you mean to uninstall the entire BASHful Suite"
     fi
   done
 
-elif [ "$1" == "gist" ] && [ "$2" == "install" ]; then
-  _url=$(echo "$3.git" | sed -e 's#.git.git#.git#g');
-  gist_hash=$(basename "$_url" | sed -e 's#.git##g');
-  echo "$gist_hash: $_url";
-  cd $__TMP__;
-  git clone "$_url";
-  cd "$gist_hash";
-  echo;
-  file=$(ls)
-  echo "Installing File: '$file'"
-  cp "$file" "$__bash_suite_program_dir/"
-  chmod a-x "$__bash_suite_program_dir/$file"
-  chmod u+x "$__bash_suite_program_dir/$file"
-  echo;
-  cd ../;
-  rm -rf "$gist_hash";
+elif [ "$1" == "gist" ]; then
+  if [ "$2" == "install" ]; then
+    echo "TODO: record gist install in manifest"
+    _url=$(echo "$3.git" | sed -e 's#.git.git#.git#g');
+    gist_hash=$(basename "$_url" | sed -e 's#.git##g');
+    echo "$gist_hash: $_url";
+    cd $__TMP__;
+    git clone "$_url";
+    cd "$gist_hash";
+    echo;
+    file=$(ls)
+    echo "Installing File: '$file'"
+    cp "$file" "$__bash_suite_program_dir/"
+    chmod a-x "$__bash_suite_program_dir/$file"
+    chmod u+x "$__bash_suite_program_dir/$file"
+    echo;
+    cd ../;
+    rm -rf "$gist_hash";
+    manfiest.addGist $file $_url `getGistVersion $_url`
+  elif [ "$2" == "help" ]; then
+    echo 'TODO: help info for bashful gist'
+  fi
 fi
+
+echo "-------------------------------------------------------"
