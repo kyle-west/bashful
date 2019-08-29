@@ -1,4 +1,5 @@
 #!/bin/bash
+source ~/.bashful.filesys/bashful.rc
 
 # USAGE: getGistVersion https://gist.github.com/kyle-west/e3f91dc5817849ca4a316098911b7e7d
 getGistVersion () {
@@ -10,17 +11,19 @@ getGistVersion () {
 ############################################################################################
 manifest.listInstalledNative () {
   echo "Native Bashful Tools:"
-  json "$__bash_suite_filesys/installation-manifest.json" 'console.table($.native)'
+  json "$__bash_suite_filesys/installation-manifest.json" '$.native ? console.table($.native) : console.log("\tNone")'
   echo;
 }
 manifest.listInstalledGists () {
   echo "Bashful Tools Installed from Gists:"
-  json "$__bash_suite_filesys/installation-manifest.json" 'console.table($.fromGists)'
+  json "$__bash_suite_filesys/installation-manifest.json" '$.fromGists ? console.table($.fromGists) : console.log("\tNone")'
   echo;
 }
 manfiest.addGist () {
   obj=`echo "{ \"name\": \"$1\", \"gistUrl\": \"$2\", \"revision\": $3 }"`
   data=$(json "$__bash_suite_filesys/installation-manifest.json" "
+    // remove old references, and then add the new
+    \$.fromGists = \$.fromGists.filter(x => x.name !== '$1');
     \$.fromGists.push({ name: '$1', gistUrl: '$2', revision: $3 });
     console.log(JSON.stringify(\$))
   ")
@@ -59,17 +62,18 @@ registry.query () {
   "
   echo "Install a gist package by running \`bashful gist install <package-name>\`"
 }
-registry.findInstallURL () {
+registry.getGistUrl () {
   json "$__bash_suite_filesys/registry.json" "
     let found = [] 
     Object.keys(\$).forEach(registry => {
       Object.keys(\$[registry])
-        .filter(name => name === '$1'))
+        .filter(name => name === '$1')
         .forEach(package => {
-          found.push({package, registry, description: \$[registry][package].description })
+          found.push(\$[registry][package].gistUrl)
         })
     })
-    console.table(found)
+    let [url] = found
+    console.log(url || '')
   "
 }
 registry.addRegistryList () {
@@ -86,6 +90,7 @@ registry.addRegistryList () {
   ")
   echo "$data" > "$__bash_suite_filesys/registry.json"
   rm -rf "$gist_hash";
+  echo "Successfully add $file to the main registry"
 }
 
 
@@ -98,23 +103,38 @@ __SELF__="$__bash_suite_filesys/__SELF__"
 __TMP__="$__bash_suite_filesys/tmp"
 __docs="https://kyle-west.github.io/bashful"
 
+#:######################################################
+#: bashful list
+#:   Display currently installed Bashful Tools
+#:######################################################
 if [ "$1" == "list" ] || [ "$1" == "-l" ]; then
   manifest.listInstalledNative
   manifest.listInstalledGists
 
-elif [ "$1" == "info" ]; then
-  registry.query $2
-
+#:######################################################
+#: bashful [docs|man] [<program|gist>]
+#:   Open the website for an installed program or gist
+#:######################################################
 elif [ "$1" == "docs" ] || [ "$1" == "man" ]; then
   if [ "$2" == "" ]; then 
     echo "Opening the BASHful Docs in your default browser"
     open "$__docs"
-  else 
-    _url="$__docs/$2.html"
+  else
+    _url=$(manfiest.getGistUrl $2) # check for gist
+    if [ "$_url" == "" ]; then
+      _url="$__docs/$2.html" # must be native
+    fi
     echo -e "Opening the Docs for \`$2\` in your default browser:\n\t$_url"
     open "$_url"
   fi
 
+#:######################################################
+#: bashful install <program>
+#:   Install a missing native program. To install gists, see `bashful gist install`  
+#: bashful update [<program|gist>]
+#:   Reinstall a program. `update` also supports already installed gists
+#:   Running `bashful update` will also update `bashful`
+#:######################################################
 elif [ "$1" == "install" ] || [ "$1" == "update" ] ; then
   cd "$__SELF__";
   
@@ -137,10 +157,15 @@ elif [ "$1" == "install" ] || [ "$1" == "update" ] ; then
     fi
   done
 
+#:######################################################
+#: bashful uninstall <program|gist>
+#: bashful uninstall --remove-suite
+#:   Remove a native program or installed gist.
+#:   Use `--remove-suite` to uninstall all of bashful
+#:######################################################
 elif [ "$1" == "uninstall" ] && [ "$2" == "--remove-suite" ]; then
   cd "$__SELF__";
   bash uninstall.sh
-  
 elif [ "$1" == "uninstall" ]; then
   cd "$__SELF__";
   for program in "${@:2}"; do
@@ -153,11 +178,32 @@ elif [ "$1" == "uninstall" ]; then
     fi
   done
 
+#:######################################################
+#: bashful gist install <url|program name in registry>
+#:   Install a gist as an executable
+#: bashful gist add <new registry url>
+#:   Add a JSON registry list to bashful's main registry
+#: bashful gist info [<name or search>]
+#:   List all gists in bashful's registry that are avaliable to install
+#:######################################################
 elif [ "$1" == "gist" ]; then
   if [ "$2" == "add" ]; then
     registry.addRegistryList $3
+  elif [ "$2" == "info" ]; then
+    registry.query $3
   elif [ "$2" == "install" ]; then
-    _url=$(echo "$3.git" | sed -e 's#.git.git#.git#g');
+    if [[ "$3" != http* ]]; then
+      _url=$(registry.getGistUrl "$3")
+      if [ "$_url" == "" ]; then
+        echo "No package named \"$3\" found in the registry. Either install via URL or update registry with \`bashful gist add <new-registry-url>\`"
+        exit 1
+      fi
+      _url=$(echo "$_url.git" | sed -e 's#.git.git#.git#g');
+    else 
+      _url=$(echo "$3.git" | sed -e 's#.git.git#.git#g');
+    fi
+    echo $_url
+
     gist_hash=$(basename "$_url" | sed -e 's#.git##g');
     echo "$gist_hash: $_url";
     cd $__TMP__;
@@ -173,9 +219,13 @@ elif [ "$1" == "gist" ]; then
     cd ../;
     rm -rf "$gist_hash";
     manfiest.addGist $file $_url `getGistVersion $_url`
-  elif [ "$2" == "help" ]; then
-    echo 'TODO: help info for bashful gist'
   fi
-fi
 
-echo "-------------------------------------------------------"
+# bashful help
+else
+  # `import` feature coming 
+  if [ "$1" != "" ] && ( [ "$1" != "help" ] || [ "$1" != "import" ] ); then
+    echo "Unknown Command: \"$1\""
+  fi
+  bashful.autoDocs ~/.bashful/bashful
+fi
