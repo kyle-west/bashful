@@ -1,0 +1,254 @@
+#####################################################################################################
+#              TESTING     bashful_test.sh
+#####################################################################################################
+________________________________________________________________________________________________
+RUNNING > 'bashful list'
+................................................................
+Native Bashful Tools:
+┌─────────┬───────────┐
+│ (index) │  Values   │
+├─────────┼───────────┤
+│    0    │ 'bashful' │
+│    1    │  'cache'  │
+│    2    │   'inc'   │
+│    3    │  'json'   │
+└─────────┴───────────┘
+
+Bashful Tools Installed from Gists:
+┌─────────┐
+│ (index) │
+├─────────┤
+└─────────┘
+
+................................................................
+________________________________________________________________________________________________
+________________________________________________________________________________________________
+RUNNING > 'bashful uninstall inc'
+................................................................
+Uninstalling 'inc'
+................................................................
+________________________________________________________________________________________________
+Native Bashful Tools:
+┌─────────┬───────────┐
+│ (index) │  Values   │
+├─────────┼───────────┤
+│    0    │ 'bashful' │
+│    1    │  'cache'  │
+│    2    │   'inc'   │
+│    3    │  'json'   │
+└─────────┴───────────┘
+
+Bashful Tools Installed from Gists:
+┌─────────┐
+│ (index) │
+├─────────┤
+└─────────┘
+
+________________________________________________________________________________________________
+SKIPPING > 'bashful uninstall --remove-suite'
+________________________________________________________________________________________________
+Installing 'inc'
+Gathering latest files from GitHub
+________________________________________________________________________________________________
+RUNNING > 'bashful gist info'
+................................................................
+┌─────────┬─────────────┬────────────┬────────────────────────────────────────────────────────────────────────┐
+│ (index) │   package   │  registry  │                              description                               │
+├─────────┼─────────────┼────────────┼────────────────────────────────────────────────────────────────────────┤
+│    0    │   'prune'   │ 'standard' │           'Remove all the Git branches that match a pattern'           │
+│    1    │ 'killport'  │ 'standard' │         'Kill a process that is listening on a specific port'          │
+│    2    │ 'workspace' │ 'standard' │ '"Favorite" a directory and quickly navigate to it using `ws [name]`.' │
+└─────────┴─────────────┴────────────┴────────────────────────────────────────────────────────────────────────┘
+Install a gist package by running `bashful gist install <package-name>`
+................................................................
+________________________________________________________________________________________________
+----------------------------------------------------------------
+________________________________________________________________________________________________
+RUNNING > 'bashful gist install https://gist.github.com/kyle-west/5735c708e395b7c65d439325df88ea32'
+................................................................
+https://gist.github.com/kyle-west/5735c708e395b7c65d439325df88ea32.git
+5735c708e395b7c65d439325df88ea32: https://gist.github.com/kyle-west/5735c708e395b7c65d439325df88ea32.git
+
+Installing File: 'killport'
+
+................................................................
+________________________________________________________________________________________________
+________________________________________________________________________________________________
+RUNNING > 'bashful gist install prune'
+................................................................
+https://gist.github.com/kyle-west/6ffc7ec0d1c377c99f44c5388356391f.git
+6ffc7ec0d1c377c99f44c5388356391f: https://gist.github.com/kyle-west/6ffc7ec0d1c377c99f44c5388356391f.git
+
+Installing File: 'prune'
+
+................................................................
+________________________________________________________________________________________________
+Native Bashful Tools:
+┌─────────┬───────────┐
+│ (index) │  Values   │
+├─────────┼───────────┤
+│    0    │ 'bashful' │
+│    1    │  'cache'  │
+│    2    │   'inc'   │
+│    3    │  'json'   │
+└─────────┴───────────┘
+
+Bashful Tools Installed from Gists:
+┌─────────┬────────────┬──────────────────────────────────────────────────────────────────────────┬──────────┐
+│ (index) │    name    │                                 gistUrl                                  │ revision │
+├─────────┼────────────┼──────────────────────────────────────────────────────────────────────────┼──────────┤
+│    0    │ 'killport' │ 'https://gist.github.com/kyle-west/5735c708e395b7c65d439325df88ea32.git' │    2     │
+│    1    │  'prune'   │ 'https://gist.github.com/kyle-west/6ffc7ec0d1c377c99f44c5388356391f.git' │    1     │
+└─────────┴────────────┴──────────────────────────────────────────────────────────────────────────┴──────────┘
+
+----------------------------------------------------------------
+________________________________________________________________________________________________
+RUNNING > 'bashful gist install bacon'
+................................................................
+No package named "bacon" found in the registry. Either install via URL or update registry with `bashful gist add <new-registry-url>`
+................................................................
+________________________________________________________________________________________________
+________________________________________________________________________________________________
+RUNNING > 'bashful gist add https://gist.github.com/kyle-west/f1cdcb80c1666788cd5337f0d66bb058'
+................................................................
+f1cdcb80c1666788cd5337f0d66bb058: https://gist.github.com/kyle-west/f1cdcb80c1666788cd5337f0d66bb058.git
+Successfully add BashfulTest.registry.json to the main registry
+................................................................
+________________________________________________________________________________________________
+┌─────────┬─────────────┬───────────────┬────────────────────────────────────────────────────────────────────────┐
+│ (index) │   package   │   registry    │                              description                               │
+├─────────┼─────────────┼───────────────┼────────────────────────────────────────────────────────────────────────┤
+│    0    │   'prune'   │  'standard'   │           'Remove all the Git branches that match a pattern'           │
+│    1    │ 'killport'  │  'standard'   │         'Kill a process that is listening on a specific port'          │
+│    2    │ 'workspace' │  'standard'   │ '"Favorite" a directory and quickly navigate to it using `ws [name]`.' │
+│    3    │   'bacon'   │ 'BashfulTest' │               'Test the `bashful gist install` program'                │
+└─────────┴─────────────┴───────────────┴────────────────────────────────────────────────────────────────────────┘
+Install a gist package by running `bashful gist install <package-name>`
+________________________________________________________________________________________________
+RUNNING > 'bashful gist install bacon'
+................................................................
+https://gist.github.com/kyle-west/e3f91dc5817849ca4a316098911b7e7d.git
+e3f91dc5817849ca4a316098911b7e7d: https://gist.github.com/kyle-west/e3f91dc5817849ca4a316098911b7e7d.git
+
+Installing File: 'bacon'
+
+................................................................
+________________________________________________________________________________________________
+----------------------------------------------------------------
+Native Bashful Tools:
+┌─────────┬───────────┐
+│ (index) │  Values   │
+├─────────┼───────────┤
+│    0    │ 'bashful' │
+│    1    │  'cache'  │
+│    2    │   'inc'   │
+│    3    │  'json'   │
+└─────────┴───────────┘
+
+Bashful Tools Installed from Gists:
+┌─────────┬────────────┬──────────────────────────────────────────────────────────────────────────┬──────────┐
+│ (index) │    name    │                                 gistUrl                                  │ revision │
+├─────────┼────────────┼──────────────────────────────────────────────────────────────────────────┼──────────┤
+│    0    │ 'killport' │ 'https://gist.github.com/kyle-west/5735c708e395b7c65d439325df88ea32.git' │    2     │
+│    1    │  'prune'   │ 'https://gist.github.com/kyle-west/6ffc7ec0d1c377c99f44c5388356391f.git' │    1     │
+│    2    │  'bacon'   │ 'https://gist.github.com/kyle-west/e3f91dc5817849ca4a316098911b7e7d.git' │    2     │
+└─────────┴────────────┴──────────────────────────────────────────────────────────────────────────┴──────────┘
+
+----------------------------------------------------------------
+________________________________________________________________________________________________
+RUNNING > 'bashful update'
+................................................................
+Gathering latest files from GitHub
+................................................................
+________________________________________________________________________________________________
+________________________________________________________________________________________________
+RUNNING > 'bashful update bacon'
+................................................................
+Gathering latest files from GitHub
+Installing 'bacon'
+https://gist.github.com/kyle-west/e3f91dc5817849ca4a316098911b7e7d.git
+e3f91dc5817849ca4a316098911b7e7d: https://gist.github.com/kyle-west/e3f91dc5817849ca4a316098911b7e7d.git
+
+Installing File: 'bacon'
+
+................................................................
+________________________________________________________________________________________________
+________________________________________________________________________________________________
+SKIPPING > 'bashful docs cache'
+________________________________________________________________________________________________
+________________________________________________________________________________________________
+SKIPPING > 'bashful man inc'
+________________________________________________________________________________________________
+________________________________________________________________________________________________
+SKIPPING > 'bashful docs bacon'
+________________________________________________________________________________________________
+________________________________________________________________________________________________
+RUNNING > 'bashful'
+................................................................
+
+ bashful list
+   Display currently installed Bashful Tools
+
+
+ bashful [docs|man] [<program|gist>]
+   Open the website for an installed program or gist
+
+
+ bashful install <program>
+   Install a missing native program. To install gists, see `bashful gist install`  
+ bashful update [<program|gist>]
+   Reinstall a program. `update` also supports already installed gists
+   Running `bashful update` will also update `bashful`
+
+
+ bashful uninstall <program|gist>
+ bashful uninstall --remove-suite
+   Remove a native program or installed gist.
+   Use `--remove-suite` to uninstall all of bashful
+
+
+ bashful gist install <url|program name in registry>
+   Install a gist as an executable
+ bashful gist add <new registry url>
+   Add a JSON registry list to bashful's main registry
+ bashful gist info [<name or search>]
+   List all gists in bashful's registry that are avaliable to install
+
+................................................................
+________________________________________________________________________________________________
+________________________________________________________________________________________________
+RUNNING > 'bashful unknown-command'
+................................................................
+Unknown Command: "unknown-command"
+
+ bashful list
+   Display currently installed Bashful Tools
+
+
+ bashful [docs|man] [<program|gist>]
+   Open the website for an installed program or gist
+
+
+ bashful install <program>
+   Install a missing native program. To install gists, see `bashful gist install`  
+ bashful update [<program|gist>]
+   Reinstall a program. `update` also supports already installed gists
+   Running `bashful update` will also update `bashful`
+
+
+ bashful uninstall <program|gist>
+ bashful uninstall --remove-suite
+   Remove a native program or installed gist.
+   Use `--remove-suite` to uninstall all of bashful
+
+
+ bashful gist install <url|program name in registry>
+   Install a gist as an executable
+ bashful gist add <new registry url>
+   Add a JSON registry list to bashful's main registry
+ bashful gist info [<name or search>]
+   List all gists in bashful's registry that are avaliable to install
+
+................................................................
+________________________________________________________________________________________________
+#####################################################################################################
