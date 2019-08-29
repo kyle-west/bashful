@@ -1,3 +1,12 @@
+#######################################################################
+# Bashful Specific Configs (requires terminal restart when changed)
+#######################################################################
+
+# PATH manipulation
 export PATH="${PATH}:$(echo ~/.bashful)"
 
+# Bashful Utils
 alias bashful.parseArgs="source ~/.bashful.filesys/utils/parse-args"
+bashful.autoDocs () {
+  grep "^#:" "$1" | sed -e 's/#://g' -e 's/#//g'
+}
