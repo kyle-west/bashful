@@ -8,21 +8,16 @@
 #    source parse-args
 ######################################################################################
 
+positional_args=()
 args=()
 until [ -z "$1" ]; do
-  if [[ "$1" == "--"* ]]; then
-    key=`echo "$1" | sed -e "s/--/__/g"`
-    echo "BIG FLAG  : $key='$2'"
-    eval "$key='$2'"
-    shift 2
-  elif [[ "$1" == "-"* ]]; then
+  if [[ "$1" == "-"* ]]; then
     key=`echo "$1" | sed -e "s/-/_/g"`
-    echo "SMALL FLAG: $key"
     eval "$key=1"
-    shift 1
+    eval "${key}_VALUE='$2'"
   else
-    echo "POSITONAL : $1"
-    args+=("$1")
-    shift 1
+    positional_args+=("$1")
   fi
+  args+=("$1");
+  shift 1;
 done
