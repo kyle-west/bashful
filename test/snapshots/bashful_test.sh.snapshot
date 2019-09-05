@@ -212,7 +212,7 @@ RUNNING > 'bashful'
  bashful gist add <new registry url>
    Add a JSON registry list to bashful's main registry
  bashful gist info [<name or search>]
-   List all gists in bashful's registry that are avaliable to install
+   List all gists in bashful's registry that are available to install
 
 ................................................................
 ________________________________________________________________________________________________
@@ -247,7 +247,7 @@ Unknown Command: "unknown-command"
  bashful gist add <new registry url>
    Add a JSON registry list to bashful's main registry
  bashful gist info [<name or search>]
-   List all gists in bashful's registry that are avaliable to install
+   List all gists in bashful's registry that are available to install
 
 ................................................................
 ________________________________________________________________________________________________

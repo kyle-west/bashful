@@ -25,18 +25,49 @@ Additionally, `bashful list` will display all the installed tools from the suite
 
 ## Installing GitHub Gists
 
-_Warning: this feature is experimental and subject to possible change_
-
-```sh
-bashful gist install <url-to-github-gist>
-```
-
-I once wanted to send a coworker a script that ran a useful set of instructions for 
+_Why?:_ I once wanted to send a coworker a script that ran a useful set of instructions for 
 a particular common work task. It ended up being a painful process to have the file
 added to `PATH` and setting the permissions so that it could be invoked from the 
 command line. So I decided to add a feature to `bashful` to install gists as 
 executable files. 
 
+```
+bashful gist install <url-to-github-gist | program name in registry>
+```
+
+That will install your gist program as an executable. To see what packages are known by the registry, run `bashful gist info`.
+
+To combine another registry with the main bashful registry, run the following command:
+
+```sh
+bashful gist add <url to gist hosting additional registry>
+```
+
+### How to Set Up a Bashful Gist Registry
+
+<details>
+
+Bashful registries are simply JSON objects of the following form:
+
+```json
+{
+  "NameOfYourRegistry": {
+    "package-name": {
+      "description": "Some description of what this does",
+      "gistUrl": "https://gist.github.com/some-user/some-hash"
+    },
+    "other-package": {
+      "description": "The TLDR on what this package does",
+      "gistUrl": "https://gist.github.com/some-user/some-other-hash"
+    },
+    ...
+  }
+}
+```
+
+The registry lives as a github gist (see [example](https://gist.github.com/kyle-west/f1cdcb80c1666788cd5337f0d66bb058)) where the only file in the gist is the JSON show above. The filename in the gist is not important, but it is recommended that you have it of the form `NameOfYourRegistry.registry.json` to make it easier to discover. 
+
+</details>
 
 
 ## Examples

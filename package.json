@@ -7,7 +7,8 @@
     "install": "bash install.sh",
     "uninstall": "bash uninstall.sh",
     "update": "bash update.sh",
-    "test": "bash test/index.sh"
+    "test": "bash test/index.sh",
+    "test-u": "bash test/index.sh --update-snapshots"
   },
   "repository": {
     "type": "git",
