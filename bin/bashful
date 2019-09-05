@@ -81,7 +81,7 @@ registry.addRegistryList () {
   gist_hash=$(basename "$_url" | sed -e 's#.git##g');
   echo "$gist_hash: $_url";
   cd $__TMP__;
-  git clone "$_url";
+  git clone "$_url"; 
   cd "$gist_hash";
   file=$(ls)
   data=$(json $file "
@@ -140,7 +140,7 @@ elif [ "$1" == "install" ] || [ "$1" == "update" ] ; then
   
   if [ "$1" == "update" ]; then 
     echo Gathering latest files from GitHub
-    git pull;
+    git pull >/dev/null;
   fi;
 
   for program in "${@:2}"; do
