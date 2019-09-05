@@ -4,20 +4,23 @@ source test/_tools.sh
 mkdir test_tmp
 cp -a test/ test_tmp/
 cd test_tmp
-ls
+run ls
 
 run cache snapshots
-ls
+run ls
 
 run cache parse-args results
-ls
+run ls
 
 # Fails on diff for "Files for test_tmp were cached on <DATE>" because it was always different - hence sed
 run cache --show | sed -e "s/Files for test_tmp were cached on .*/Files for test_tmp were cached on <DATE>/g"
-ls
+run ls
+
+run cache --restore parse-args results
+run ls
 
 run cache --restore
-ls
+run ls
 
 run cache --show
 

@@ -4,6 +4,8 @@ testFiles="""
   cache_test.sh
 """
 
+[ ! -z "$1" ] && [ "$1" != "--update-snapshots" ] && testFiles="$1_test.sh";
+
 testProg () {
   echo "#####################################################################################################"
   echo "#              TESTING     $1"

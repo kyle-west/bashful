@@ -21,7 +21,7 @@ cache <option>
 
 `cache` supports the following options:
 
-- `cache --restore`: Restores _all_ folders currently cached from the current working directory. (support soon coming to be able to restore a specific folder or set of folders by name, but not currently available).
+- `cache --restore [<folder 1> <...>]`: Restores folders cached from the current working directory. If no folder names are given as arguments, it will restore _all_ folders in the cache for the current directory. 
 - `cache --show`: Lists the cached folders from the current working directory and the timestamp of last caching.
 - `cache --clear`: Permanently deletes all the cached folders from the current working directory. If specified `--clear all` then **_all_** of the cached folders from _every_ workspace will be removed.
 
@@ -43,7 +43,7 @@ We can now do whatever tasks need to be done without that folder there. When we
 are ready to have the node_modules back in the repo, we can simply invoke:
 
 ```sh
-cache --restore
+cache --restore node_modules
 ```
 
 This is _much_ quicker than running `npm install`, and a lot more efficient on

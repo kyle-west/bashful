@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ~/.bashful.filesys/utils/parse-args
+
 cache_dir_base=~/.folder-cache
 repo=`basename $(pwd)`;
 cache_dir="$cache_dir_base/$repo"
@@ -8,14 +10,14 @@ if [ ! -d "$cache_dir_base" ]; then
   mkdir "$cache_dir_base"
 fi
 
-if [ "$1" == "--clear" ]; then
-  if [ "$2" != "all" ]; then
+if [ ! -z "$__clear" ]; then
+  if [ "$__clear_VALUE" != "all" ]; then
     rm -rf "$cache_dir_base"
   else
     rm -rf "$cache_dir"
   fi
 
-elif [ "$1" == "--show" ]; then
+elif [ ! -z "$__show" ]; then
   if [ -f "$cache_dir/.cache-timestamp" ]; then
     echo "Files for $repo were cached on" $(cat "$cache_dir/.cache-timestamp")
     ls "$cache_dir";
@@ -23,15 +25,23 @@ elif [ "$1" == "--show" ]; then
     echo "No cached files found for $repo"
   fi
 
-elif [ "$1" == "--restore" ]; then
-  for folder in `find $cache_dir -type d -maxdepth 1 -mindepth 1`; do 
-    echo "RESTORING: $(basename $folder)"
-    mv "$folder" "./$(basename $folder)"
-    rm "$cache_dir/.cache-timestamp" 2>/dev/null
-  done
+elif [ ! -z "$__restore" ]; then
+  if [ ! -z "$positional_args" ]; then
+    for folder in "${positional_args[@]}"; do 
+      echo "RESTORING: $folder"
+      mv "$cache_dir/$folder" "./$folder"
+      rm "$cache_dir/.cache-timestamp" 2>/dev/null
+    done
+  else
+    for folder in `find $cache_dir -type d -maxdepth 1 -mindepth 1`; do 
+      echo "RESTORING: $(basename $folder)"
+      mv "$folder" "./$(basename $folder)"
+      rm "$cache_dir/.cache-timestamp" 2>/dev/null
+    done
+  fi
 
-elif [ "$1" != "" ]; then
-  for folder in ${@}; do 
+elif [ "$args" != "" ]; then
+  for folder in "${args[@]}"; do 
     if [ ! -d "$cache_dir" ]; then
       mkdir "$cache_dir"
     fi
