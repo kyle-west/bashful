@@ -7,7 +7,9 @@ RUNNING > 'ls'
 _tools.sh
 bashful_test.sh
 cache_test.sh
+inc_test.sh
 index.sh
+json_test.sh
 parse-args
 parse-args_test.sh
 results
@@ -27,7 +29,9 @@ RUNNING > 'ls'
 _tools.sh
 bashful_test.sh
 cache_test.sh
+inc_test.sh
 index.sh
+json_test.sh
 parse-args
 parse-args_test.sh
 results
@@ -48,7 +52,9 @@ RUNNING > 'ls'
 _tools.sh
 bashful_test.sh
 cache_test.sh
+inc_test.sh
 index.sh
+json_test.sh
 parse-args_test.sh
 ................................................................
 ________________________________________________________________________________________________
@@ -67,7 +73,9 @@ RUNNING > 'ls'
 _tools.sh
 bashful_test.sh
 cache_test.sh
+inc_test.sh
 index.sh
+json_test.sh
 parse-args_test.sh
 ................................................................
 ________________________________________________________________________________________________
@@ -84,7 +92,9 @@ RUNNING > 'ls'
 _tools.sh
 bashful_test.sh
 cache_test.sh
+inc_test.sh
 index.sh
+json_test.sh
 parse-args
 parse-args_test.sh
 results
@@ -102,7 +112,9 @@ RUNNING > 'ls'
 _tools.sh
 bashful_test.sh
 cache_test.sh
+inc_test.sh
 index.sh
+json_test.sh
 parse-args
 parse-args_test.sh
 results

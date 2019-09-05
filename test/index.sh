@@ -2,6 +2,8 @@ testFiles="""
   bashful_test.sh
   parse-args_test.sh
   cache_test.sh
+  inc_test.sh
+  json_test.sh
 """
 
 [ ! -z "$1" ] && [ "$1" != "--update-snapshots" ] && testFiles="$1_test.sh";

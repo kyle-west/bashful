@@ -6,6 +6,7 @@ cp -a test/ test_tmp/
 cd test_tmp
 run ls
 
+# run tests
 run cache snapshots
 run ls
 
