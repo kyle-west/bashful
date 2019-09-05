@@ -1,5 +1,7 @@
 testFiles="""
   bashful_test.sh
+  parse-args_test.sh
+  cache_test.sh
 """
 
 testProg () {
@@ -12,7 +14,7 @@ testProg () {
 
 for file in $testFiles; do
   echo "#####################################################################################################"
-  echo "#              TESTING     $1"
+  echo "#              START TESTS FOR     $file"
   echo "#####################################################################################################"
   echo "Running Tests"
   echo "   STDERR will appear here (including Git output). STDOUT is stored to a file: test/results/$file.output"
@@ -40,4 +42,8 @@ for file in $testFiles; do
   diff -u "test/snapshots/$file.snapshot" "test/results/$file.output"
   [ $? -eq 0 ] || exit 1
   echo "#####################################################################################################"
+  echo "#              END OF TESTS FOR     $file"
+  echo "#####################################################################################################"
+  echo;
+  echo;
 done

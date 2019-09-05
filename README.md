@@ -11,23 +11,12 @@ A list of available tools and their usages can be found on the [Documentation Pa
 
 # Installing 
 
-Though most of the code is not written in JavaScript, I use the Node Package 
-Manager to handle installing and script running, since it is familiar to many.
-To install the toolset run:
+Though most of the code is not written in JavaScript, some of the tools in bashful require `node` (version 8 or higher). You must first [install `NodeJS`](https://nodejs.org/en/download/) on your machine.
+
+Then you may run the following command to install bashful:
 
 ```sh
 npx -q https://github.com/kyle-west/bashful.git
-```
-
-To install without NPM run:
-
-```sh
-# clone the suite installation package:
-git clone https://github.com/kyle-west/bashful.git
-cd bashful/
-
-# run the installation
-sh ./install.sh
 ```
 
 When either script completes, **you must restart your terminal**. This 
@@ -50,7 +39,7 @@ If you wish to uninstall a specific tool, see the [Docs](https://kyle-west.githu
 
 ### Updating 
 
-The `bashful` tool has built in support for updating programs
+The `bashful` tool has built in support for updating programs (including installed `gists`)
 
 ```sh
 bashful update [program]
