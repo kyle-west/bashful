@@ -19,7 +19,7 @@ Then you may run the following command to install bashful:
 npx -q https://github.com/kyle-west/bashful.git
 ```
 
-When either script completes, **you must restart your terminal**. This 
+When the script completes, **you must restart your terminal**. This 
 is because the installation edits your `$path` environment variable to make the 
 tools accessible in all contexts. 
 
