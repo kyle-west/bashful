@@ -6,6 +6,9 @@ testFiles="""
   json_test.sh
 """
 
+source ~/.bashful.filesys/bashful.rc
+mkdir -p test/results
+
 [ ! -z "$1" ] && [ "$1" != "--update-snapshots" ] && testFiles="$1_test.sh";
 
 testProg () {
@@ -21,7 +24,7 @@ for file in $testFiles; do
   echo "#              START TESTS FOR     $file"
   echo "#####################################################################################################"
   echo "Running Tests"
-  echo "   STDERR will appear here (including Git output). STDOUT is stored to a file: test/results/$file.output"
+  echo "   STDERR will appear here (including Git output)."
   echo "   STDOUT is stored to a file: test/results/$file.output"
   echo;
   npm install >/dev/null
