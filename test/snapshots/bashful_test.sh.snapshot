@@ -156,6 +156,23 @@ Bashful Tools Installed from Gists:
 
 ----------------------------------------------------------------
 ________________________________________________________________________________________________
+RUNNING > 'bashful gist update-registry BashfulTest'
+................................................................
+f1cdcb80c1666788cd5337f0d66bb058: https://gist.github.com/kyle-west/f1cdcb80c1666788cd5337f0d66bb058.git
+Successfully add BashfulTest.registry.json to the main registry
+................................................................
+________________________________________________________________________________________________
+┌─────────┬─────────────┬───────────────┬────────────────────────────────────────────────────────────────────────┐
+│ (index) │   package   │   registry    │                              description                               │
+├─────────┼─────────────┼───────────────┼────────────────────────────────────────────────────────────────────────┤
+│    0    │   'prune'   │  'standard'   │           'Remove all the Git branches that match a pattern'           │
+│    1    │ 'killport'  │  'standard'   │         'Kill a process that is listening on a specific port'          │
+│    2    │ 'workspace' │  'standard'   │ '"Favorite" a directory and quickly navigate to it using `ws [name]`.' │
+│    3    │   'bacon'   │ 'BashfulTest' │               'Test the `bashful gist install` program'                │
+└─────────┴─────────────┴───────────────┴────────────────────────────────────────────────────────────────────────┘
+Install a gist package by running `bashful gist install <package-name>`
+----------------------------------------------------------------
+________________________________________________________________________________________________
 RUNNING > 'bashful update'
 ................................................................
 Gathering latest files from GitHub
@@ -211,6 +228,8 @@ RUNNING > 'bashful'
    Install a gist as an executable
  bashful gist add <new registry url>
    Add a JSON registry list to bashful's main registry
+ bashful gist update-registry <registry name>
+   Update the list of a currently installed registry
  bashful gist info [<name or search>]
    List all gists in bashful's registry that are available to install
 
@@ -246,6 +265,8 @@ Unknown Command: "unknown-command"
    Install a gist as an executable
  bashful gist add <new registry url>
    Add a JSON registry list to bashful's main registry
+ bashful gist update-registry <registry name>
+   Update the list of a currently installed registry
  bashful gist info [<name or search>]
    List all gists in bashful's registry that are available to install
 

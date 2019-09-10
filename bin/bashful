@@ -29,6 +29,11 @@ manfiest.addGist () {
   ")
   echo "$data" > "$__bash_suite_filesys/installation-manifest.json"
 }
+manfiest.getRegistryUrl () {
+  json "$__bash_suite_filesys/installation-manifest.json" "
+    console.log((\$).registries['$1'] || '')
+  "
+}
 manfiest.removeGist () {
   data=$(json "$__bash_suite_filesys/installation-manifest.json" "
     \$.fromGists = \$.fromGists.filter(x => x.name !== '$1');
@@ -81,14 +86,29 @@ registry.addRegistryList () {
   gist_hash=$(basename "$_url" | sed -e 's#.git##g');
   echo "$gist_hash: $_url";
   cd $__TMP__;
+  rm -rf "$gist_hash";
   git clone "$_url"; 
   cd "$gist_hash";
   file=$(ls)
-  data=$(json $file "
+
+  # record in the registry
+  regData=$(json $file "
     let registry = require('$__bash_suite_filesys/registry.json');
     console.log(JSON.stringify(Object.assign({}, registry, \$)))
   ")
-  echo "$data" > "$__bash_suite_filesys/registry.json"
+  echo "$regData" > "$__bash_suite_filesys/registry.json"
+  
+  # record in the manifest
+  manData=$(json $file "
+    let manifest = require('$__bash_suite_filesys/installation-manifest.json');
+    let url = '$_url'; 
+    let registries = {}; 
+    Object.keys($).forEach(k => registries[k] = url);
+    manifest.registries = Object.assign({}, manifest.registries, registries)
+    console.log(JSON.stringify(manifest))
+  ")
+  echo "$manData" > "$__bash_suite_filesys/installation-manifest.json"
+
   rm -rf "$gist_hash";
   echo "Successfully add $file to the main registry"
 }
@@ -183,12 +203,17 @@ elif [ "$1" == "uninstall" ]; then
 #:   Install a gist as an executable
 #: bashful gist add <new registry url>
 #:   Add a JSON registry list to bashful's main registry
+#: bashful gist update-registry <registry name>
+#:   Update the list of a currently installed registry
 #: bashful gist info [<name or search>]
 #:   List all gists in bashful's registry that are available to install
 #:######################################################
 elif [ "$1" == "gist" ]; then
   if [ "$2" == "add" ]; then
     registry.addRegistryList $3
+  elif [ "$2" == "update-registry" ]; then
+    _url=`manfiest.getRegistryUrl $3`
+    registry.addRegistryList "$_url"
   elif [ "$2" == "info" ]; then
     registry.query $3
   elif [ "$2" == "install" ]; then
