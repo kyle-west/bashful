@@ -2,6 +2,13 @@ source test/_tools.sh
 
 
 # ######################################################
+# bashful --version
+#   Display currently Bashful Tools version
+# ######################################################
+xrun bashful --version
+xrun bashful -v
+
+# ######################################################
 # bashful list
 #   Display currently installed Bashful Tools
 # ######################################################

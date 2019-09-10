@@ -6,6 +6,10 @@ getGistVersion () {
   curl -s `echo "$1" | sed -e 's#.git$##g'` | grep 'class="Counter"' | sed -e 's/[^0-9]*//g'
 }
 
+getLatestRelease () {
+  curl -s "https://api.github.com/repos/kyle-west/bashful/releases/latest" | grep '"tag_name":' | sed -E 's#.*"([^"]+)".*#\1#'
+}
+
 ############################################################################################
 # Manifest
 ############################################################################################
@@ -130,6 +134,22 @@ __docs="https://kyle-west.github.io/bashful"
 if [ "$1" == "list" ] || [ "$1" == "-l" ]; then
   manifest.listInstalledNative
   manifest.listInstalledGists
+
+# < NOT in bashful help >
+# ######################################################
+#  bashful --version
+#    Display currently Bashful Tools version
+# ######################################################
+elif [ "$1" == "--version" ] || [ "$1" == "-v" ]; then
+  current=`json $__SELF__/package.json '$.version'`
+  latest=`getLatestRelease`
+
+  if [ "$current" != "$latest" ]; then 
+    echo "Current version is $current, latest release is $latest"
+    echo "  Run 'bashful update bashful' to get the latest version"
+  else 
+    echo "$current"
+  fi
 
 #:######################################################
 #: bashful [docs|man] [<program|gist>]
