@@ -43,6 +43,12 @@ To combine another registry with the main bashful registry, run the following co
 bashful gist add <url to gist hosting additional registry>
 ```
 
+To update a registry listing on your machine, run the following command. It will grab the latest data so that you can access it via `bashful gist info`.
+
+```sh
+bashful gist update-registry <name of the registry>
+```
+
 ### How to Set Up a Bashful Gist Registry
 
 <details>

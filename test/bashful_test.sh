@@ -56,6 +56,10 @@ div --
 bashful list
 
 div --
+run bashful gist update-registry BashfulTest
+bashful gist info
+
+div --
 run bashful update
 run bashful update bacon
 

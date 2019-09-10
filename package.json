@@ -1,6 +1,6 @@
 {
   "name": "bashful",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Install my custom suite of terminal tools for Bash in OSX",
   "main": "install.sh",
   "scripts": {

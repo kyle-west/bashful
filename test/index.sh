@@ -54,3 +54,6 @@ for file in $testFiles; do
   echo;
   echo;
 done
+
+echo -e "\033[1;90mTests complete for: ${testFiles[@]}\033[0m" >&2; # dark grey
+echo -e "\033[1;32mAll Tests Passed. Great job, you did not break anything (yet...)\033[0m\n" # bright green
