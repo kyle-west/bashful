@@ -51,9 +51,8 @@ bashful gist update-registry <name of the registry>
 
 ### How to Set Up a Bashful Gist Registry
 
-<details>
-
 Bashful registries are simply JSON objects of the following form:
+
 
 ```json
 {
@@ -73,7 +72,6 @@ Bashful registries are simply JSON objects of the following form:
 
 The registry lives as a github gist (see [example](https://gist.github.com/kyle-west/f1cdcb80c1666788cd5337f0d66bb058)) where the only file in the gist is the JSON show above. The filename in the gist is not important, but it is recommended that you have it of the form `NameOfYourRegistry.registry.json` to make it easier to discover. 
 
-</details>
 
 
 ## Examples
