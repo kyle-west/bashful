@@ -2,6 +2,8 @@
 
 ![Primary Support for Mac OS X](https://img.shields.io/badge/platform-osx-%23)
 [![Install Version](https://img.shields.io/github/v/tag/kyle-west/bashful?label=version)](https://github.com/kyle-west/bashful/releases/latest)
+[![Actions Status](https://github.com/kyle-west/bashful/workflows/CI%20Test/badge.svg)](https://github.com/kyle-west/bashful/actions)
+
 
 `BASHful` is a set of tools I regularly use in my personal development workflow.
 This package allows me to share my tools with others. I am always up for ideas 
