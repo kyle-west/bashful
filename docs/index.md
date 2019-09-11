@@ -1,7 +1,5 @@
 # BASHful Suite Tools
 
-<link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/kyle-west/bashful/master/docs/favicon.png"/>
-
 ## [`bashful`](./bashful.md)
 
 Manage the BASHful Suite tools.
