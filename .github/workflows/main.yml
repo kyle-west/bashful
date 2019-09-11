@@ -1,0 +1,19 @@
+name: CI Test
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install and Test
+      run: |
+        npm install;
+        source ~/.bashful.filesys/bashful.rc;
+        npm test;
