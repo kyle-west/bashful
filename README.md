@@ -1,4 +1,6 @@
-# 🖥 BASHful Suite by [kyle-west](https://github.com/kyle-west)
+![Bashful Suite by kyle-west](./docs/logo.png)
+
+---
 
 ![Primary Support for Mac OS X](https://img.shields.io/badge/platform-osx-%23)
 [![Install Version](https://img.shields.io/github/v/tag/kyle-west/bashful?label=version)](https://github.com/kyle-west/bashful/releases/latest)
