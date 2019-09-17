@@ -23,7 +23,7 @@ manifest.listInstalledGists () {
   json "$__bash_suite_filesys/installation-manifest.json" '$.fromGists ? console.table($.fromGists) : console.log("\tNone")'
   echo;
 }
-manfiest.addGist () {
+manifest.addGist () {
   obj=`echo "{ \"name\": \"$1\", \"gistUrl\": \"$2\", \"revision\": $3 }"`
   data=$(json "$__bash_suite_filesys/installation-manifest.json" "
     // remove old references, and then add the new
@@ -33,19 +33,19 @@ manfiest.addGist () {
   ")
   echo "$data" > "$__bash_suite_filesys/installation-manifest.json"
 }
-manfiest.getRegistryUrl () {
+manifest.getRegistryUrl () {
   json "$__bash_suite_filesys/installation-manifest.json" "
     console.log((\$).registries['$1'] || '')
   "
 }
-manfiest.removeGist () {
+manifest.removeGist () {
   data=$(json "$__bash_suite_filesys/installation-manifest.json" "
     \$.fromGists = \$.fromGists.filter(x => x.name !== '$1');
     console.log(JSON.stringify(\$))
   ")
   echo "$data" > "$__bash_suite_filesys/installation-manifest.json"
 }
-manfiest.getGistUrl () {
+manifest.getGistUrl () {
   json "$__bash_suite_filesys/installation-manifest.json" "
     let [gist] = \$.fromGists.filter(x => x.name === '$1');
     if (gist) console.log(gist.gistUrl)
@@ -160,7 +160,7 @@ elif [ "$1" == "docs" ] || [ "$1" == "man" ]; then
     echo "Opening the BASHful Docs in your default browser"
     open "$__docs"
   else
-    _url=$(manfiest.getGistUrl $2) # check for gist
+    _url=$(manifest.getGistUrl $2) # check for gist
     if [ "$_url" == "" ]; then
       _url="$__docs/$2.html" # must be native
     fi
@@ -176,19 +176,43 @@ elif [ "$1" == "docs" ] || [ "$1" == "man" ]; then
 #:   Running `bashful update` will also update `bashful`
 #:######################################################
 elif [ "$1" == "install" ] || [ "$1" == "update" ] ; then
-  cd "$__SELF__";
-  
   if [ "$1" == "update" ]; then 
+    cd "$__TMP__";
+    rm -rf bashful >/dev/null;
     echo Gathering latest files from GitHub
-    git pull >/dev/null;
+    git clone https://github.com/kyle-west/bashful;
+
+    # fail safe
+    [ $? -eq 0 ] || ( echo "Failed to connect to https://github.com/kyle-west/bashful" && exit 1 ) 
+
+    rm -rf "$__SELF__"
+    cp -a bashful "$__SELF__"
+
+    # copy RC and utils 
+    cp "$__SELF__/filesys/bashful.rc" "$__bash_suite_filesys/bashful.rc"
+    cp -a "$__SELF__/filesys/utils" "$__bash_suite_filesys/utils"
+
+    # merge the registry files
+    data=$(json "$__SELF__/filesys/registry.json" "
+      let defaultRegistry = \$;
+      let userRegistry = require('$__bash_suite_filesys/registry.json');
+      Object.keys(\$.standard).forEach(package => {
+        userRegistry.standard[package] = defaultRegistry.standard[package]
+      })
+      console.log(JSON.stringify(userRegistry))
+    ")
+    echo "$data" > "$__bash_suite_filesys/registry.json"
+
+    source ~/.bashful.filesys/bashful.rc
   fi;
 
+  cd "$__SELF__";
   for program in "${@:2}"; do
     echo "Installing '$program'"
     if [ -f "bin/$program" ]; then
       cp "bin/$program" "$__bash_suite_program_dir/"
     else
-      _url=$(manfiest.getGistUrl $program)
+      _url=$(manifest.getGistUrl $program)
       if [ "$_url" != "" ]; then
         bashful gist install "$_url";
       else 
@@ -212,7 +236,7 @@ elif [ "$1" == "uninstall" ]; then
     if [ "$program" != 'bashful' ]; then 
       echo "Uninstalling '$program'"
       rm "$__bash_suite_program_dir/$program"
-      manfiest.removeGist $program
+      manifest.removeGist $program
     else
       echo "Cannot uninstall '$program'. Use 'bashful uninstall --remove-suite' if you mean to uninstall the entire BASHful Suite"
     fi
@@ -232,7 +256,7 @@ elif [ "$1" == "gist" ]; then
   if [ "$2" == "add" ]; then
     registry.addRegistryList $3
   elif [ "$2" == "update-registry" ]; then
-    _url=`manfiest.getRegistryUrl $3`
+    _url=`manifest.getRegistryUrl $3`
     registry.addRegistryList "$_url"
   elif [ "$2" == "info" ]; then
     registry.query $3
@@ -263,7 +287,7 @@ elif [ "$1" == "gist" ]; then
     echo;
     cd ../;
     rm -rf "$gist_hash";
-    manfiest.addGist $file $_url `getGistVersion $_url`
+    manifest.addGist $file $_url `getGistVersion $_url`
   fi
 
 # bashful help
