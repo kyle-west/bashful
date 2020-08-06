@@ -5,11 +5,11 @@ on: [push]
 jobs:
   build:
 
-    runs-on: macOS-latest
+    runs-on: macos-latest
     
     strategy:
       matrix:
-        node-version: [10.x]
+        node-version: [ '12' ]
     
     steps:
     - uses: actions/checkout@v1

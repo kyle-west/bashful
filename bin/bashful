@@ -3,7 +3,8 @@ source ~/.bashful.filesys/bashful.rc
 
 # USAGE: getGistVersion https://gist.github.com/kyle-west/e3f91dc5817849ca4a316098911b7e7d
 getGistVersion () {
-  curl -s `echo "$1" | sed -e 's#.git$##g'` | grep 'class="Counter"' | sed -e 's/[^0-9]*//g'
+  # parse out the content of: <span class="Counter " title="2">2</span>
+  curl -s `echo "$1" | sed -e 's#.git$##g'` | grep 'class="Counter' | cut -d">" -f2 | sed -e 's/[^0-9]*//g'
 }
 
 getLatestRelease () {
@@ -24,11 +25,11 @@ manifest.listInstalledGists () {
   echo;
 }
 manifest.addGist () {
-  obj=`echo "{ \"name\": \"$1\", \"gistUrl\": \"$2\", \"revision\": $3 }"`
+  obj=`echo "{ \"name\": \"$1\", \"gistUrl\": \"$2\", \"revision\": \"$3\" }"`
   data=$(json "$__bash_suite_filesys/installation-manifest.json" "
     // remove old references, and then add the new
     \$.fromGists = \$.fromGists.filter(x => x.name !== '$1');
-    \$.fromGists.push({ name: '$1', gistUrl: '$2', revision: $3 });
+    \$.fromGists.push({ name: '$1', gistUrl: '$2', revision: '$3' });
     console.log(JSON.stringify(\$))
   ")
   echo "$data" > "$__bash_suite_filesys/installation-manifest.json"

@@ -35,9 +35,14 @@ executable files.
 bashful gist install <url-to-github-gist | program name in registry>
 ```
 
-That will install your gist program as an executable. To see what packages are known by the registry, run `bashful gist info`.
+That will install your gist program as an executable.
 
-To combine another registry with the main bashful registry, run the following command:
+
+## Gist Registries
+
+To see what packages are known by the registry, run `bashful gist info`.
+
+To combine add an additional registry to you local copy of `bashful`, run the following command:
 
 ```sh
 bashful gist add <url to gist hosting additional registry>
