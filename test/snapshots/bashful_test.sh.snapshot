@@ -103,8 +103,8 @@ Bashful Tools Installed from Gists:
 ┌─────────┬────────────┬──────────────────────────────────────────────────────────────────────────┬──────────┐
 │ (index) │    name    │                                 gistUrl                                  │ revision │
 ├─────────┼────────────┼──────────────────────────────────────────────────────────────────────────┼──────────┤
-│    0    │ 'killport' │ 'https://gist.github.com/kyle-west/5735c708e395b7c65d439325df88ea32.git' │    2     │
-│    1    │  'prune'   │ 'https://gist.github.com/kyle-west/6ffc7ec0d1c377c99f44c5388356391f.git' │    1     │
+│    0    │ 'killport' │ 'https://gist.github.com/kyle-west/5735c708e395b7c65d439325df88ea32.git' │   '2'    │
+│    1    │  'prune'   │ 'https://gist.github.com/kyle-west/6ffc7ec0d1c377c99f44c5388356391f.git' │   '2'    │
 └─────────┴────────────┴──────────────────────────────────────────────────────────────────────────┴──────────┘
 
 ----------------------------------------------------------------
@@ -155,9 +155,9 @@ Bashful Tools Installed from Gists:
 ┌─────────┬────────────┬──────────────────────────────────────────────────────────────────────────┬──────────┐
 │ (index) │    name    │                                 gistUrl                                  │ revision │
 ├─────────┼────────────┼──────────────────────────────────────────────────────────────────────────┼──────────┤
-│    0    │ 'killport' │ 'https://gist.github.com/kyle-west/5735c708e395b7c65d439325df88ea32.git' │    2     │
-│    1    │  'prune'   │ 'https://gist.github.com/kyle-west/6ffc7ec0d1c377c99f44c5388356391f.git' │    1     │
-│    2    │  'bacon'   │ 'https://gist.github.com/kyle-west/e3f91dc5817849ca4a316098911b7e7d.git' │    2     │
+│    0    │ 'killport' │ 'https://gist.github.com/kyle-west/5735c708e395b7c65d439325df88ea32.git' │   '2'    │
+│    1    │  'prune'   │ 'https://gist.github.com/kyle-west/6ffc7ec0d1c377c99f44c5388356391f.git' │   '2'    │
+│    2    │  'bacon'   │ 'https://gist.github.com/kyle-west/e3f91dc5817849ca4a316098911b7e7d.git' │   '2'    │
 └─────────┴────────────┴──────────────────────────────────────────────────────────────────────────┴──────────┘
 
 ----------------------------------------------------------------
